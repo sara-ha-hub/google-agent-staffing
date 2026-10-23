@@ -1,0 +1,16 @@
+# Jupyter
+.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# Excel lock files
+~$*
+
+# OS files
+Thumbs.db
+desktop.ini
+.DS_Store
