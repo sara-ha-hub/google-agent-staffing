@@ -1,0 +1,10 @@
+# Python 3.10 or newer. Install beside requirements.txt. Does not replace it.
+langchain>=0.3.27
+langgraph>=0.6.0
+langchain-google-genai>=2.0
+pydantic>=2.0
+pandas>=2.2
+numpy>=1.26
+fastapi>=0.115
+uvicorn>=0.32
+streamlit>=1.39
