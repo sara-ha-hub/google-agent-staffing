@@ -39,6 +39,16 @@ google-agent-staffing/
 | `data/clean/eligible_signups.csv` | Step 01 | One row per eligible advertiser sign-up (2024 and 2025) |
 | `data/clean/monthly_eligible_demand.csv` | Step 01 | Per country and month: eligible sign-ups and their average budget |
 | `data/clean/forecast_2026.csv` | Step 02 | Per country and month of 2026: forecast eligible sign-ups and the country's average budget |
+| `outputs/step03_beergame_genai/monthly_results.csv` | Step 03 | Monthly simulation results: staffing, hires, releases, sign-ups served, backlog, revenue, costs, and profit for the selected country |
+| `outputs/step03_beergame_genai/policy_comparison.csv` | Step 03 | Performance comparison of manual, rule-based, GenAI (if enabled), and optimized staffing strategies |
+| `outputs/step03_beergame_genai/decision_audit.csv` | Step 03 | Decision history, observed simulation state, proposed staffing actions, applied actions, and GenAI guardrail adjustments |
+| `outputs/step03_beergame_genai/profit_maximizing_staffing_plan.csv` | Step 04 | Monthly optimized hiring and release plans for the selected country under profit-only and profit-with-SLA strategies |
+| `outputs/step03_beergame_genai/optimization_solver_audit.csv` | Step 04 | Optimization status, solver diagnostics, objective values, and validation metrics |
+| `outputs/step03_beergame_genai/all_22_countries_optimized_plans.csv` | Step 04 | Optimized monthly hiring and release plans for all 22 countries under both optimization strategies |
+| `outputs/step03_beergame_genai/country_profit_service_comparison.csv` | Step 04 | Country-level profit, revenue, staffing costs, hiring, and service-rate comparisons |
+| `outputs/step03_beergame_genai/all_country_profit_summary.csv` | Step 04 | Aggregated profit, revenue, cost, hiring, and service performance across all 22 countries |
+| `outputs/step03_beergame_genai/all_country_optimizer_audit.csv` | Step 04 | Solver results and validation metrics for all 44 country-level optimization runs |
+
 
 **Inputs for Step 03:** `countries.csv` and `forecast_2026.csv`.
 
