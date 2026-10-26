@@ -10,7 +10,7 @@ DADS 5250: Generative AI in Practice · Module 7 Hackathon
 |---|---|---|---|---|
 | 01 | Prepare the data | `notebooks/01_data_preparation.ipynb` | Sara | Done |
 | 02 | Forecast demand | `notebooks/02_forecast_demand.ipynb` | Sara | Done |
-| 03 | Build the simulator | `notebooks/03_simulator_optimized.ipynb`| Michael | To do |
+| 03 | Build the simulator | `notebooks/03_simulator_optimized.ipynb`| Michael | Done |
 | 04 | Find the staffing plan | | Vinh | To do |
 | 05 | Test other demand | | Vinh | To do |
 | 06 | Build the GenAI layer | | Jay | To do |
