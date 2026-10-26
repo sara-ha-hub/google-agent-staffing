@@ -1,0 +1,3 @@
+Mode,Country,Solver_Status,Solver_Message,Optimality_Gap,Minimum_Service_Rate,Forecast_Signups,Optimized_Profit_Objective_USD,Method,Validated_Simulator_Profit_USD,Validated_Service_Rate
+Profit only,USA,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,,13057,46079357.086333334,SciPy HiGHS mixed-integer linear programming,46079357.08633333,0.9996936509152179
+Profit with SLA,USA,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,0.98,13057,46079357.086333334,SciPy HiGHS mixed-integer linear programming,46079357.08633333,0.9996936509152179

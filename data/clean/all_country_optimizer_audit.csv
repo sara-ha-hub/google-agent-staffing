@@ -1,0 +1,45 @@
+Mode,Country,Solver_Status,Solver_Message,Optimality_Gap,Minimum_Service_Rate,Forecast_Signups,Optimized_Profit_Objective_USD,Method,Validated_Simulator_Profit_USD,Validated_Service_Rate
+Profit only,USA,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,,13057,46079357.086333334,SciPy HiGHS mixed-integer linear programming,46079357.08633333,0.9996936509152179
+Profit with SLA,USA,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,0.98,13057,46079357.086333334,SciPy HiGHS mixed-integer linear programming,46079357.08633333,0.9996936509152179
+Profit only,UK,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,,6221,13175396.188000001,SciPy HiGHS mixed-integer linear programming,13175396.188000001,1.0
+Profit with SLA,UK,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,0.98,6221,13175396.188000001,SciPy HiGHS mixed-integer linear programming,13175396.188000001,1.0
+Profit only,Germany,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,,5373,9507764.894916665,SciPy HiGHS mixed-integer linear programming,9507764.894916667,1.0
+Profit with SLA,Germany,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,0.98,5373,9507764.894916665,SciPy HiGHS mixed-integer linear programming,9507764.894916667,1.0
+Profit only,India,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,,14443,31720929.533333335,SciPy HiGHS mixed-integer linear programming,31720929.53333333,1.0
+Profit with SLA,India,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,0.98,14443,31720929.533333335,SciPy HiGHS mixed-integer linear programming,31720929.53333333,1.0
+Profit only,Brazil,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,,5723,16780721.813333333,SciPy HiGHS mixed-integer linear programming,16780721.813333336,1.0
+Profit with SLA,Brazil,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,0.98,5723,16780721.813333333,SciPy HiGHS mixed-integer linear programming,16780721.813333336,1.0
+Profit only,Japan,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,,6680,11498486.761833334,SciPy HiGHS mixed-integer linear programming,11498486.761833332,0.9833832335329341
+Profit with SLA,Japan,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,0.98,6680,11498486.761833334,SciPy HiGHS mixed-integer linear programming,11498486.761833332,0.9833832335329341
+Profit only,Australia,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,,4635,5150152.756583333,SciPy HiGHS mixed-integer linear programming,5150152.756583334,1.0
+Profit with SLA,Australia,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,0.98,4635,5150152.756583333,SciPy HiGHS mixed-integer linear programming,5150152.756583334,1.0
+Profit only,Canada,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,,4713,8170431.395833334,SciPy HiGHS mixed-integer linear programming,8170431.395833335,0.9891788669637174
+Profit with SLA,Canada,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,0.98,4713,8170431.395833334,SciPy HiGHS mixed-integer linear programming,8170431.395833335,0.9891788669637174
+Profit only,France,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,,4175,4008979.481333332,SciPy HiGHS mixed-integer linear programming,4008979.481333333,1.0
+Profit with SLA,France,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,0.98,4175,4008979.481333332,SciPy HiGHS mixed-integer linear programming,4008979.481333333,1.0
+Profit only,Mexico,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,,4948,4168205.429,SciPy HiGHS mixed-integer linear programming,4168205.4290000005,1.0
+Profit with SLA,Mexico,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,0.98,4948,4168205.429,SciPy HiGHS mixed-integer linear programming,4168205.4290000005,1.0
+Profit only,China,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,,5801,19825700.16933333,SciPy HiGHS mixed-integer linear programming,19825700.169333335,1.0
+Profit with SLA,China,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,0.98,5801,19825700.16933333,SciPy HiGHS mixed-integer linear programming,19825700.169333335,1.0
+Profit only,Italy,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,,5126,4760641.788000001,SciPy HiGHS mixed-integer linear programming,4760641.788,1.0
+Profit with SLA,Italy,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,0.98,5126,4760641.788000001,SciPy HiGHS mixed-integer linear programming,4760641.788,1.0
+Profit only,Spain,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,,3610,2853531.0285833334,SciPy HiGHS mixed-integer linear programming,2853531.028583333,0.9739612188365651
+Profit with SLA,Spain,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,0.98,3610,2851101.0765833333,SciPy HiGHS mixed-integer linear programming,2851101.076583333,0.9811634349030471
+Profit only,Poland,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,,3022,1342175.1675000004,SciPy HiGHS mixed-integer linear programming,1342175.1675,0.9669093315684977
+Profit with SLA,Poland,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,0.98,3022,1336917.0775000001,SciPy HiGHS mixed-integer linear programming,1336917.0775000001,0.9801455989410987
+Profit only,South Korea,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,,3784,3783472.4385,SciPy HiGHS mixed-integer linear programming,3783472.4385,1.0
+Profit with SLA,South Korea,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,0.98,3784,3783472.4385,SciPy HiGHS mixed-integer linear programming,3783472.4385,1.0
+Profit only,South Africa,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,,2989,888367.43808337,SciPy HiGHS mixed-integer linear programming,888367.4380833333,0.8280361324857812
+Profit with SLA,South Africa,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,0.98,2989,848998.3564166666,SciPy HiGHS mixed-integer linear programming,848998.3564166664,0.9819337571094011
+Profit only,Vietnam,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),7.955210942759968e-07,,4874,3379303.8334999997,SciPy HiGHS mixed-integer linear programming,3379303.8335000006,0.9181370537546163
+Profit with SLA,Vietnam,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,0.98,4874,3377750.0360001423,SciPy HiGHS mixed-integer linear programming,3377750.036,0.9817398440705786
+Profit only,Argentina,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,,902,-240981.73500000004,SciPy HiGHS mixed-integer linear programming,-240981.73499999993,1.0
+Profit with SLA,Argentina,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,0.98,902,-240981.73500000004,SciPy HiGHS mixed-integer linear programming,-240981.73499999993,1.0
+Profit only,Turkey,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,,2090,843707.3299166666,SciPy HiGHS mixed-integer linear programming,843707.3299166665,0.9617224880382775
+Profit with SLA,Turkey,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,0.98,2090,842375.4115833334,SciPy HiGHS mixed-integer linear programming,842375.4115833333,0.9808612440191388
+Profit only,Indonesia,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,,1829,1702789.22325,SciPy HiGHS mixed-integer linear programming,1702789.2232500003,1.0
+Profit with SLA,Indonesia,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,0.98,1829,1702789.22325,SciPy HiGHS mixed-integer linear programming,1702789.2232500003,1.0
+Profit only,Thailand,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,,1185,-90499.96400000004,SciPy HiGHS mixed-integer linear programming,-90499.964,1.0
+Profit with SLA,Thailand,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,0.98,1185,-90499.96400000004,SciPy HiGHS mixed-integer linear programming,-90499.964,1.0
+Profit only,UAE,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,,991,-3842192.1859166673,SciPy HiGHS mixed-integer linear programming,-3842192.185916668,1.0
+Profit with SLA,UAE,0,Optimization terminated successfully. (HiGHS Status 7: Optimal),0.0,0.98,991,-3842192.1859166673,SciPy HiGHS mixed-integer linear programming,-3842192.185916668,1.0
