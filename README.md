@@ -2,7 +2,15 @@
 
 DADS 5250: Generative AI in Practice · Module 7 Hackathon
 
-**Goal:** pick the number of agents for every country and month of 2026 that gives Google the highest profit, beat the "keep current staff" plan, and explain the result to a manager with a GenAI app.
+## About the project
+
+Google uses support agents to help new advertisers get started, but only advertisers whose projected annual budget is above their country's threshold qualify for this help. This project plans how many agents Google should have in each of 22 countries for every month of 2026. We clean the 2024 and 2025 sign-up data, keep only eligible advertisers, and forecast eligible sign-ups for each country and month of 2026. A Beer Game style simulator then turns any staffing plan into cost, revenue, profit, and service rate, and an integer programming optimizer picks the monthly hires and releases with the highest modeled profit, with an optional 98% service target (SLA). The plan must beat keeping the January 2026 headcount all year, and it is tested again with 20% lower and 20% higher demand. Finally, a Streamlit app lets a manager ask questions in plain English: a LangGraph agent calls the forecast, simulator, and optimizer as tools and explains the answer without inventing numbers.
+
+**Objectives:**
+- Forecast eligible advertiser sign-ups for every country and month of 2026.
+- Find the monthly staffing plan with the highest modeled profit, with or without a 98% service target.
+- Beat the "keep current staff" plan and check that the result holds when demand changes.
+- Explain the results to a manager through a GenAI app.
 
 ## Project steps
 
@@ -13,7 +21,7 @@ DADS 5250: Generative AI in Practice · Module 7 Hackathon
 | 03 | Build the simulator | `notebooks/03_simulator_optimized.ipynb`| Michael | Done |
 | 04 | Find the staffing plan | `notebooks/04_Find_Staffing_Plan.ipynb`| Michael & Vinh | Done |
 | 05 | Test other demand | `notebooks/05_Test_Other_Demand.ipynb` | Vinh | Done |
-| 06 | Build the GenAI layer | | Jay | To do |
+| 06 | Build the GenAI layer | `genai/app.py` (Streamlit app) | Jay | Done |
 
 Full step descriptions: [`docs/project_steps.pdf`](docs/project_steps.pdf)
 
