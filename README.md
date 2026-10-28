@@ -48,7 +48,10 @@ google-agent-staffing/
 | `outputs/step03_beergame_genai/country_profit_service_comparison.csv` | Step 03 | Country-level profit, revenue, staffing costs, hiring, and service-rate comparisons |
 | `outputs/step03_beergame_genai/all_country_profit_summary.csv` | Step 03 | Aggregated profit, revenue, cost, hiring, and service performance across all 22 countries |
 | `outputs/step03_beergame_genai/all_country_optimizer_audit.csv` | Step 03 | Solver results and validation metrics for all 44 country-level optimization runs |
-
+| `data/clean/staffing_plan_98_sla.csv` | Step 01 | Monthly hiring and release plan targeting at least 98% annual service in each country |
+| `data/clean/staffing_plan_profit.csv` | Step 01 | Monthly hiring and release plan maximizing modeled profit without a minimum service target |
+| `data/clean/demand_sensitivily_analysis_results.csv` | Step 01 | 	Detailed profit, service, abandonment, and backlog results by country, demand scenario, and mode |
+| `data/clean/demand_sensitivily_analysis_summary.csv` | Step 02 | Overall profit and service comparison across low, base, and high demand for all three modes |
 
 **Inputs for Step 03:** `countries.csv` and `forecast_2026.csv`.
 
