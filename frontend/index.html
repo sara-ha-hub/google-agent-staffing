@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent staffing</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1c1915;
+      --muted: #5c564c;
+      --line: #e3dcd0;
+      --paper: #f6f3ec;
+      --panel: #fffcf7;
+      --accent: #0f6e56;
+      --accent-ink: #ffffff;
+      --user: #e7f3ee;
+      --warn: #8a3b12;
+      --warn-bg: #fde8dc;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 16px/1.45 "Segoe UI", system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+    }
+    body {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.85rem 1.2rem;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 650;
+    }
+    header p {
+      margin: 0.15rem 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .header-actions { display: flex; gap: 0.45rem; }
+    #options {
+      margin: 0 1.2rem;
+      max-height: 38vh;
+      overflow: auto;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+    [hidden] { display: none !important; }
+    form {
+      padding: 0.9rem 1rem 1rem;
+      display: grid;
+      gap: 0.85rem;
+    }
+    .option-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+      gap: 0.9rem 1.2rem;
+    }
+    main {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      padding: 0.8rem 1.2rem 1.2rem;
+    }
+    .chat {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+    fieldset {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      display: grid;
+      gap: 0.45rem;
+    }
+    legend, label.block {
+      font-size: 0.78rem;
+      font-weight: 650;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    label.field {
+      display: grid;
+      gap: 0.25rem;
+      font-size: 0.92rem;
+    }
+    input, select, textarea, button {
+      font: inherit;
+      color: inherit;
+    }
+    input[type="text"], input[type="password"], input[type="number"], select, textarea {
+      width: 100%;
+      padding: 0.45rem 0.55rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+    textarea { min-height: 3.4rem; max-height: 9rem; resize: vertical; }
+    .hint { margin: 0; color: var(--muted); font-size: 0.82rem; }
+    .checks {
+      max-height: 9.5rem;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0.35rem 0.55rem;
+      background: #fff;
+    }
+    .checks label {
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+      padding: 0.12rem 0;
+    }
+    #transcript {
+      flex: 1;
+      overflow: auto;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+    .bubble {
+      max-width: 42rem;
+      padding: 0.7rem 0.85rem;
+      border-radius: 10px;
+      white-space: pre-wrap;
+    }
+    .bubble.user { align-self: flex-end; background: var(--user); }
+    .bubble.assistant { align-self: flex-start; background: #f3f0ea; }
+    .bubble.error { align-self: stretch; background: var(--warn-bg); color: var(--warn); }
+    .meta { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.8rem; }
+    .composer {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.5rem;
+      padding: 0.8rem;
+      border-top: 1px solid var(--line);
+    }
+    button {
+      border: 0;
+      border-radius: 8px;
+      padding: 0.55rem 0.9rem;
+      background: var(--accent);
+      color: var(--accent-ink);
+      cursor: pointer;
+    }
+    button.secondary, button[aria-expanded="true"] {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+    button[aria-expanded="true"] { background: #efeae2; }
+    button:disabled { opacity: 0.6; cursor: wait; }
+    @media (max-width: 700px) {
+      header { align-items: flex-start; }
+      .header-actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>2026 forecast assistant</h1>
+      <p>Ask about eligible sign-ups by country and month.</p>
+    </div>
+    <div class="header-actions">
+      <button class="secondary" id="options-toggle" type="button" aria-expanded="false" aria-controls="options">Options</button>
+      <button class="secondary" id="new-chat" type="button">New conversation</button>
+    </div>
+  </header>
+  <div id="options" hidden>
+    <form id="settings">
+      <div class="option-grid">
+      <fieldset>
+        <legend>Model</legend>
+        <label class="field">Provider
+          <select id="provider">
+            <option value="google" selected>Google Gemini</option>
+            <option value="openai">OpenAI</option>
+            <option value="other">Other</option>
+          </select>
+        </label>
+        <label class="field" id="other-provider-wrap" hidden>Provider id
+          <input id="other-provider" type="text" autocomplete="off" placeholder="anthropic">
+        </label>
+        <label class="field">Model
+          <input id="model" type="text" list="model-list" value="gemini-3.5-flash-lite" autocomplete="off" required>
+          <datalist id="model-list">
+            <option value="gemini-3.5-flash-lite"></option>
+            <option value="gemini-3.8-flash"></option>
+            <option value="gemini-2.5-flash"></option>
+            <option value="gpt-4.1-mini"></option>
+          </datalist>
+        </label>
+        <label class="field">API key
+          <input id="api-key" type="password" autocomplete="off" placeholder="Paste your key">
+        </label>
+        <p class="hint">The key is sent with the question and is not saved on the server.</p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Extra tools</legend>
+        <div id="tools" class="checks"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Simulator</legend>
+        <label class="field">Demand scale
+          <input id="demand-scale" type="number" min="0.1" step="0.1" value="1" required>
+        </label>
+        <p class="hint">1 keeps the forecast. 0.8 is lower sign-ups. 1.2 is higher sign-ups.</p>
+        <span class="block">Countries</span>
+        <div id="simulator-countries" class="checks"></div>
+        <p class="hint">No selection includes every country.</p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Staffing plan</legend>
+        <p class="hint">The plan has to beat keeping January 2026 headcount all year.</p>
+        <span class="block">Countries to restaff</span>
+        <div id="staffing-countries" class="checks"></div>
+        <label class="field">Minimum agents
+          <input id="min-agents" type="number" min="0" step="1" placeholder="No minimum">
+        </label>
+        <label class="field">Maximum multiple of current staff
+          <input id="max-agents" type="number" min="0.1" step="0.1" placeholder="No maximum">
+        </label>
+      </fieldset>
+      </div>
+    </form>
+  </div>
+  <main>
+    <section class="chat">
+      <div id="transcript">
+        <p class="hint">Ask the assistant about a country, a month, or a change in sign-ups.</p>
+      </div>
+      <div class="composer">
+        <textarea id="message" placeholder="What is the January forecast for Argentina?"></textarea>
+        <button id="send" type="button">Send</button>
+      </div>
+    </section>
+  </main>
+  <script>
+    const state = { threadId: crypto.randomUUID(), busy: false };
+
+    function checkedCountries(containerId) {
+      const names = [...document.querySelectorAll(`#${containerId} input:checked`)].map((box) => box.value);
+      return names.length ? names : null;
+    }
+
+    function setChecked(containerId, names) {
+      const selected = new Set(names || []);
+      document.querySelectorAll(`#${containerId} input`).forEach((box) => {
+        box.checked = selected.has(box.value);
+      });
+    }
+
+    function providerValue() {
+      const choice = document.querySelector("#provider").value;
+      if (choice === "other") return document.querySelector("#other-provider").value.trim();
+      return choice;
+    }
+
+    function requestBody(message) {
+      const minAgents = document.querySelector("#min-agents").value;
+      const maxAgents = document.querySelector("#max-agents").value;
+      const staffing = {
+        countries: checkedCountries("staffing-countries"),
+        objective: "max_profit",
+        baseline: "keep_current_staff",
+      };
+      if (minAgents !== "") staffing.min_agents = Number(minAgents);
+      if (maxAgents !== "") staffing.max_agents_vs_current = Number(maxAgents);
+      return {
+        message,
+        thread_id: state.threadId,
+        llm: {
+          provider: providerValue(),
+          model: document.querySelector("#model").value.trim(),
+          api_key: document.querySelector("#api-key").value,
+        },
+        enabled_tools: [...document.querySelectorAll("#tools input:checked")].map((box) => box.value),
+        simulator: {
+          demand_scale: Number(document.querySelector("#demand-scale").value),
+          countries: checkedCountries("simulator-countries"),
+        },
+        staffing,
+      };
+    }
+
+    function addBubble(role, text, meta) {
+      const transcript = document.querySelector("#transcript");
+      const hint = transcript.querySelector(".hint");
+      if (hint) hint.remove();
+      const bubble = document.createElement("div");
+      bubble.className = `bubble ${role}`;
+      bubble.textContent = text;
+      if (meta) {
+        const note = document.createElement("p");
+        note.className = "meta";
+        note.textContent = meta;
+        bubble.append(note);
+      }
+      transcript.append(bubble);
+      transcript.scrollTop = transcript.scrollHeight;
+    }
+
+    function settingsNote(result) {
+      const scale = result.simulator.demand_scale;
+      const countries = result.simulator.countries;
+      const where = countries && countries.length ? countries.join(", ") : "every country";
+      const tools = result.enabled_tools.length ? result.enabled_tools.join(", ") : "no extra tools";
+      return `Demand scale ${scale} for ${where}. ${tools}. Model ${result.model}.`;
+    }
+
+    function applyResult(result) {
+      document.querySelector("#demand-scale").value = result.simulator.demand_scale;
+      setChecked("simulator-countries", result.simulator.countries);
+      setChecked("staffing-countries", result.staffing.countries);
+      document.querySelector("#min-agents").value = result.staffing.min_agents ?? "";
+      document.querySelector("#max-agents").value = result.staffing.max_agents_vs_current ?? "";
+      document.querySelector("#model").value = result.model;
+      const provider = document.querySelector("#provider");
+      if (result.provider === "google" || result.provider === "openai") {
+        provider.value = result.provider;
+        document.querySelector("#other-provider-wrap").hidden = true;
+      } else {
+        provider.value = "other";
+        document.querySelector("#other-provider-wrap").hidden = false;
+        document.querySelector("#other-provider").value = result.provider;
+      }
+    }
+
+    function errorText(payload) {
+      const detail = payload && payload.detail;
+      if (typeof detail === "string") return detail;
+      if (Array.isArray(detail)) {
+        return detail.map((item) => item.msg || JSON.stringify(item)).join(" ");
+      }
+      return "The request failed.";
+    }
+
+    async function send() {
+      if (state.busy) return;
+      const message = document.querySelector("#message").value.trim();
+      if (!message) return;
+      state.busy = true;
+      document.querySelector("#send").disabled = true;
+      addBubble("user", message);
+      document.querySelector("#message").value = "";
+      try {
+        const response = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(requestBody(message)),
+        });
+        const payload = await response.json();
+        if (!response.ok) {
+          addBubble("error", errorText(payload));
+          return;
+        }
+        addBubble("assistant", payload.reply || "No reply.", settingsNote(payload));
+        applyResult(payload);
+      } catch (err) {
+        addBubble("error", "The server did not answer.");
+      } finally {
+        state.busy = false;
+        document.querySelector("#send").disabled = false;
+        document.querySelector("#message").focus();
+      }
+    }
+
+    function countryBox(name) {
+      const label = document.createElement("label");
+      const box = document.createElement("input");
+      box.type = "checkbox";
+      box.value = name;
+      label.append(box, document.createTextNode(name));
+      return label;
+    }
+
+    async function loadOptions() {
+      const [tools, countries] = await Promise.all([
+        fetch("/api/tools").then((response) => response.json()),
+        fetch("/api/countries").then((response) => response.json()),
+      ]);
+      const toolList = document.querySelector("#tools");
+      tools.forEach((tool) => {
+        const label = document.createElement("label");
+        const box = document.createElement("input");
+        box.type = "checkbox";
+        box.value = tool.name;
+        label.append(box, document.createTextNode(tool.description));
+        toolList.append(label);
+      });
+      const simulator = document.querySelector("#simulator-countries");
+      const staffing = document.querySelector("#staffing-countries");
+      countries.forEach((name) => {
+        simulator.append(countryBox(name));
+        staffing.append(countryBox(name));
+      });
+    }
+
+    document.querySelector("#provider").addEventListener("change", () => {
+      const other = document.querySelector("#provider").value === "other";
+      document.querySelector("#other-provider-wrap").hidden = !other;
+      const model = document.querySelector("#model");
+      if (document.querySelector("#provider").value === "openai" && model.value.startsWith("gemini")) {
+        model.value = "gpt-4.1-mini";
+      }
+      if (document.querySelector("#provider").value === "google" && model.value.startsWith("gpt")) {
+        model.value = "gemini-3.5-flash-lite";
+      }
+    });
+
+    document.querySelector("#send").addEventListener("click", send);
+    document.querySelector("#message").addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        send();
+      }
+    });
+    document.querySelector("#new-chat").addEventListener("click", () => {
+      state.threadId = crypto.randomUUID();
+      document.querySelector("#transcript").innerHTML = '<p class="hint">Ask the assistant about a country, a month, or a change in sign-ups.</p>';
+      document.querySelector("#message").focus();
+    });
+    document.querySelector("#options-toggle").addEventListener("click", () => {
+      const panel = document.querySelector("#options");
+      const open = panel.hidden;
+      panel.hidden = !open;
+      document.querySelector("#options-toggle").setAttribute("aria-expanded", String(open));
+    });
+
+    loadOptions();
+  </script>
+</body>
+</html>
