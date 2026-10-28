@@ -14,7 +14,7 @@ Google uses support agents to help new advertisers get started, but only adverti
 
 ## Project steps
 
-| Step | Task | Notebook | Owner | Status |
+| Step | Task | Main file | Owner | Status |
 |---|---|---|---|---|
 | 01 | Prepare the data | `notebooks/01_data_preparation.ipynb` | Sara | Done |
 | 02 | Forecast demand | `notebooks/02_forecast_demand.ipynb` | Sara | Done |
@@ -30,11 +30,17 @@ Full step descriptions: [`docs/project_steps.pdf`](docs/project_steps.pdf)
 ```
 google-agent-staffing/
 ├── data/
-│   ├── raw/          original workbook (do not edit)
-│   └── clean/        clean CSV files made by the notebooks
-├── notebooks/        one notebook per step, numbered 01 to 06
-├── docs/             project brief
-├── requirements.txt
+│   ├── raw/                  original workbook (do not edit)
+│   └── clean/                clean CSV files made by the notebooks
+├── notebooks/                one notebook per step, numbered 01 to 05
+├── staffing_engine/          simulator and optimizer from notebooks 03-05, as a Python package
+├── genai/                    step 06: LangGraph agent, tools, and Streamlit app (app.py)
+├── frontend/                 optional web page (HTML + FastAPI) for the same agent
+├── tests/                    automated tests for the engine and the Gemini connection
+├── docs/                     project brief
+├── .streamlit/               Streamlit settings
+├── requirements.txt          packages for the notebooks
+├── requirements-genai.txt    packages for the GenAI app
 └── README.md
 ```
 
@@ -58,18 +64,35 @@ google-agent-staffing/
 | `data/clean/all_country_optimizer_audit.csv` | Step 03 | Solver results and validation metrics for all 44 country-level optimization runs |
 | `data/clean/staffing_plan_98_sla.csv` | Step 04 | Monthly hiring and release plan targeting at least 98% annual service in each country |
 | `data/clean/staffing_plan_profit.csv` | Step 04 | Monthly hiring and release plan maximizing modeled profit without a minimum service target |
-| `data/clean/demand_sensitivily_analysis_results.csv` | Step 05 | 	Detailed profit, service, abandonment, and backlog results by country, demand scenario, and mode |
+| `data/clean/demand_sensitivily_analysis_results.csv` | Step 05 | Detailed profit, service, abandonment, and backlog results by country, demand scenario, and mode |
 | `data/clean/demand_sensitivily_analysis_summary.csv` | Step 05 | Overall profit and service comparison across low, base, and high demand for all three modes |
 
 **Inputs for Step 03:** `countries.csv` and `forecast_2026.csv`.
 
 ## How to run
 
+**Notebooks**
+
 1. Install the packages:
    ```
    pip install -r requirements.txt
    ```
-2. Open the notebooks from the `notebooks/` folder and run them in order (01, 02, ...). Paths are relative to that folder, for example `../data/clean/`.
+2. Notebooks 01 and 02 run locally from the `notebooks/` folder. Paths are relative to that folder, for example `../data/clean/`.
+3. Notebooks 03 to 05 were built for Google Colab. When you run them, upload `data/clean/countries.csv` and `data/clean/forecast_2026.csv` when the notebook asks.
+
+**GenAI app (step 06)**
+
+1. From the repository root, install the packages (Python 3.10 or newer):
+   ```
+   pip install -r requirements-genai.txt
+   ```
+2. Start the app:
+   ```
+   streamlit run genai/app.py
+   ```
+3. Open the local address Streamlit prints (usually http://localhost:8501), paste a Gemini API key under **Options**, and ask a question, for example: `What is the best staffing plan for USA in 2026?`
+
+More details, including the tools and tests, are in [`genai/README.md`](genai/README.md).
 
 ## Team rules
 
