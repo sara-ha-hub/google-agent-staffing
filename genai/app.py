@@ -171,7 +171,8 @@ def _draw_message(message: dict) -> None:
         if message.get("error"):
             st.error(message["content"])
         else:
-            st.markdown(message["content"])
+            # Escape $ so Streamlit does not render dollar amounts as LaTeX math
+            st.markdown(message["content"].replace("$", "\\$"))
         if message.get("meta"):
             st.caption(message["meta"])
 
