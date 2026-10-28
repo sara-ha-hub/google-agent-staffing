@@ -48,10 +48,7 @@ class LLMChoice(BaseModel):
 
 
 class SimulatorParams(BaseModel):
-    """User settings the simulator will use to adjust model output.
-
-    Step 03 fills in the rules. Until then the stub echoes these settings.
-    """
+    """User settings the beer-game simulator uses to scale demand."""
 
     model_config = ConfigDict(extra="forbid")
 
@@ -89,6 +86,12 @@ class StaffingParams(BaseModel):
         default=None,
         gt=0,
         description="Upper bound as a multiple of January 2026 headcount. 2.0 means at most double.",
+    )
+    min_service_rate: float | None = Field(
+        default=None,
+        ge=0,
+        le=1,
+        description="Optional annual service-rate floor. 0.98 is the SLA mode. Omit for profit-only.",
     )
     objective: Literal["max_profit"] = "max_profit"
     baseline: Literal["keep_current_staff"] = "keep_current_staff"

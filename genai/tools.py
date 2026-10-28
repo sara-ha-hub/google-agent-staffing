@@ -77,15 +77,17 @@ def run_simulator(
     params: SimulatorParams | None = None,
     state: Annotated[dict, InjectedState] = None,
 ) -> Command:
-    """Apply the user's simulator settings. Omitted fields stay as they are.
+    """Run the live beer-game simulator under the user's demand scale.
 
-    demand_scale 1 leaves the forecast unchanged. 0.8 is lower sign-ups and
-    1.2 is higher sign-ups. The simulator is not implemented. Do not compute profit.
+    Call this when the manager asks about profit, cost, service rate, backlog,
+    or which country is best or worst under keep_current_staff. demand_scale 1
+    leaves the forecast unchanged. 0.8 is lower sign-ups and 1.2 is higher.
+    Returns per-country profit and service metrics. Use only those numbers.
     """
     try:
         merged = _merge(SimulatorParams, state, "simulator", params)
         message = simulator_stub(merged)
-    except (ValueError, ValidationError) as exc:
+    except (ValueError, ValidationError, RuntimeError) as exc:
         return _command(tool_call_id, str(exc))
     return _command(tool_call_id, message, simulator=merged.model_dump(mode="json"))
 
@@ -96,15 +98,18 @@ def optimize_staffing(
     params: StaffingParams | None = None,
     state: Annotated[dict, InjectedState] = None,
 ) -> Command:
-    """Apply the user's staffing settings. Omitted fields stay as they are.
+    """Solve the live staffing MILP under the user's settings and demand scale.
 
-    The search would pick headcount per country and month for the highest profit
-    and must beat keep_current_staff. It is not implemented. Do not invent a plan.
+    Call this when the manager asks for a hire/release plan or optimized staffing.
+    Picks headcount actions per country and month for the highest modeled profit
+    and compares against keep_current_staff. min_service_rate 0.98 adds the SLA
+    floor. Use only the plan and profit numbers the tool returns.
     """
     try:
         merged = _merge(StaffingParams, state, "staffing", params)
-        message = staffing_stub(merged)
-    except (ValueError, ValidationError) as exc:
+        sim = SimulatorParams.model_validate((state or {}).get("simulator") or {})
+        message = staffing_stub(merged, demand_scale=sim.demand_scale)
+    except (ValueError, ValidationError, RuntimeError, AssertionError) as exc:
         return _command(tool_call_id, str(exc))
     return _command(tool_call_id, message, staffing=merged.model_dump(mode="json"))
 
