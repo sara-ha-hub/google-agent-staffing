@@ -55,6 +55,7 @@ def _init() -> None:
     st.session_state.setdefault("staff_countries", [])
     st.session_state.setdefault("min_agents", "")
     st.session_state.setdefault("max_agents", "")
+    st.session_state.setdefault("sla_98", False)
     _apply_pending()
 
 
@@ -100,6 +101,7 @@ def _pending_from_result(result) -> dict:
             if result.staffing.max_agents_vs_current is None
             else str(result.staffing.max_agents_vs_current)
         ),
+        "sla_98": result.staffing.min_service_rate == 0.98,
     }
     if result.provider in PROVIDERS and result.provider != "other":
         pending["provider"] = result.provider
@@ -124,6 +126,8 @@ def _turn(message: str) -> dict:
         "objective": "max_profit",
         "baseline": "keep_current_staff",
     }
+    if st.session_state.sla_98:
+        staffing["min_service_rate"] = 0.98
     min_agents = _optional_number(st.session_state.min_agents, "Minimum agents", whole=True)
     max_agents = _optional_number(
         st.session_state.max_agents,
@@ -208,8 +212,9 @@ def _options() -> None:
             "Countries to restaff",
             known_countries(),
             key="staff_countries",
-            placeholder="Keep current staff",
+            placeholder="Every country",
         )
+        st.checkbox("Require 98% service rate (SLA)", key="sla_98")
         st.text_input("Minimum agents", key="min_agents", placeholder="No minimum")
         st.text_input(
             "Maximum multiple of current staff",

@@ -21,9 +21,10 @@ SYSTEM = """You are an analyst for Google's 2026 agent staffing plan. A manager 
 
 Rules:
 - Use only numbers the tools return. Do not invent eligible sign-ups, GDP growth, cost, revenue, profit, or headcount.
-- view_forecast is our 2026 eligible sign-up forecast.
-- run_simulator applies the user's simulator settings. The simulator is not built yet. If the tool says so, tell the manager. Do not estimate profit.
-- optimize_staffing would pick headcount per country and month for the highest profit and must beat keep_current_staff. It is not built yet. If the tool says so, tell the manager. Do not invent a plan.
+- The simulator and staffing optimizer are implemented. Never say they are missing, stubbed, or not built. If you need those numbers, call the tools.
+- view_forecast is our 2026 eligible sign-up forecast. Call it for sign-up questions.
+- For profit, cost, service rate, backlog, or “which country is best/worst,” call run_simulator. It scales demand and runs keep_current_staff. Compare the country summary rows the tool returns.
+- For a hire/release staffing plan, call optimize_staffing. It solves for highest modeled profit (optional min_service_rate for SLA) under the current demand scale and compares to keep_current_staff.
 - world_bank_gdp is a World Bank GDP growth projection. It is not our sign-up forecast. Call it only when it is listed under enabled extra tools.
 """
 
